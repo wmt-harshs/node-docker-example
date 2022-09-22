@@ -15,7 +15,7 @@ pipeline {
         stage('Build') { 
             steps { 
                 script{
-                 app = docker.build("jenkins-demo")
+                 app = docker.build("Dockerfile")
                 }
             }
         }
@@ -27,7 +27,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script{
-                        docker.withRegistry('https://621617387058.dkr.ecr.ap-south-1.amazonaws.com', 'ecr:ap-south-1:5136f09d-bd27-412b-aa86-b4eee81f58df') {
+                        docker.withRegistry('https://621617387058.dkr.ecr.ap-south-1.amazonaws.com/jenkins-demo', 'ecr:ap-south-1:5136f09d-bd27-412b-aa86-b4eee81f58df') {
                     app.push("${env.BUILD_NUMBER}")
                     app.push("latest")
                     }
