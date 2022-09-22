@@ -12,11 +12,16 @@ pipeline {
             }
         }
 
-        stage('Build') { 
+        stage('Build') {
+            agent{
+                dockerfile{
+                    filename 'Dockerfile'
+                }
             steps { 
                 script{
                  app = docker.build("Dockerfile")
                 }
+            }
             }
         }
         stage('Test'){
